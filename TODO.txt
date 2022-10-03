@@ -1,0 +1,6 @@
+EXTRA CLASS OBJECT -> bude znazornovat 4x4 matici před transformaci + možná výslednou,odkaz na shader
+
+
+EXTRA CLASS TRANSFORMATION -> používané transformace(rotate, posun atd..)
+
+ 
