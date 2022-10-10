@@ -1,17 +1,31 @@
 #include "Shader_manager.h"
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
 
 
-
-
-Shader_Manager::Shader_Manager(const char* in_shader)
+Shader_Manager::Shader_Manager()
 {
-	shader = in_shader;
-	id = rand();
-
-
+	ShaderProgram** shaders = new ShaderProgram * [100];
 
 }
 
 Shader_Manager::~Shader_Manager()
 {
+
+}
+
+void Shader_Manager::addShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+{
+	shaders[shaderCount] = new ShaderProgram(vertexShaderFile, fragmentShaderFile);
+	shaderCount++;
+
+}
+
+
+
+ShaderProgram* Shader_Manager::getShaderProgram(int idx)
+{
+	return shaders[idx];
 }

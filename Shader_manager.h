@@ -1,17 +1,30 @@
 #pragma once
-#ifndef _Shader_m
-#define _Shader_m
+#ifndef _SHADER_M
+#define _SHADER_M
+#include <GL/glew.h>
+//Include GLFW  
+#include <GLFW/glfw3.h>  
 #include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include "Shader.h"
+#include "Object.h"
+#include "ShaderProgram.h"
 
 class Shader_Manager
 {
 public:
-	Shader_Manager(const char*);
+	Shader_Manager();
 	~Shader_Manager();
+	void run();
+	void addShader(const std::string& , const std::string& );
+	ShaderProgram* getShaderProgram(int );
+
 private:
-	int id;
-	const char* shader;
+	
+	ShaderProgram** shaders;
+	int shaderCount = 0;
 
 };
 
-#endif // !1
+#endif // !1#pragma once
