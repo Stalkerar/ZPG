@@ -2,3 +2,4 @@ zmena camery zmena pos shaderu pro vsecny shadery/ pouzij pozorovatel
 trida camera dodelat tridu tranformation -> compozite
 zachytavani pohybu a mysi
 prekopat vratit jako shader_managaer reference ne jako programID
+Observer kamera
