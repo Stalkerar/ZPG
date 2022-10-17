@@ -23,8 +23,10 @@ glm::mat4 View = glm::lookAt(
 
 Application::Application()
 {
-	objects_arr = new Object*[100];
 	renderer = new Renderer();
+	//camera = new Camera();
+	Trotate*  trotation = new Trotate();
+	Trotate* trotation_2 = new Trotate();
 
 
 	glfwSetErrorCallback(error_callback);
@@ -73,51 +75,38 @@ Application::Application()
 
 	
 
-	//drawModel_2 = new Object_model(0);
-
-	//type 1 -> fragment, type 2 -> vertex
+	
 	sh_manager = new Shader_Manager();
-	//sh_manager->Load("shaders/vs.shader", "shaders/fs.shader");
-	add_Object(new Object());
-	add_Object(new Object());
-	add_Object(new Object());
+	
+	
+	trotation->setRotation(45, glm::vec3(0.3f));
+	trotation_2->setRotation(0.14, glm::vec3(0.7f));
+	Transformation* object_1 = new Transformation();
+	object_1->addTransformation(trotation);
+	object_1->addTransformation(trotation_2);
+	object_1->setModalMatrix();
+	
 	
 
+	sh_manager->addShader("shaders/vs.shader", "shaders/fs.shader", object_1);
 
+	
 
 
 	drawModel_2 = new Object_model();
 	drawModel_2->inicialize(0,0);
-	get_Object(this->obj_indx - 3)->setTeselation(glm::vec3(0, 1, 0));
-	//get_Object(this->obj_indx - 1)->inicialize(sh_manager->Load("shaders/vs.shader", "shaders/fs.shader"));
+
 	
 
 	drawModel = new Object_model();
 	drawModel->inicialize(0, 0);
-	//drawModel->set_VAO(5);
-	//drawModel->inicialize();
-	get_Object(this->obj_indx - 2)->setTeselation(glm::vec3(0, 0, 0));
-	//get_Object(this->obj_indx - 2)->inicialize(sh_manager->Load("shaders/vs.shader", "shaders/fs.shader"));
-	
-	get_Object(this->obj_indx - 1)->setTeselation(glm::vec3(0.6f, 0, 0));
+
 
 
 
 
 }
 
-void Application::add_Object(Object* input)
-{
-	this->objects_arr[this->obj_indx] = input;
-	this->obj_indx++;
-
-}
-
-
-Object* Application::get_Object(int idx)
-{
-	return this->objects_arr[idx];
-}
 
 
 
@@ -125,18 +114,15 @@ void Application::cursor_pos_callback(GLFWwindow* window, double mouseX, double 
     printf("cursor_pos_callback %d, %d; %d, %d\n", (int)mouseX, (int)mouseY);
 }
 
+
 void Application::run_scene()
 {
-	//unsigned int shader = sh_manager;
+	
 
 	while (!glfwWindowShouldClose(window)) {
 		// clear color and depth buffer
-/*
-
-		renderer->draw(drawModel->get_VAO(), get_Object(this->obj_indx - 2), shader);
-		renderer->draw(drawModel->get_VAO(), get_Object(this->obj_indx - 1), shader);
-		renderer->draw(drawModel->get_VAO(), get_Object(this->obj_indx - 3), shader);
-	*/	
+		
+	    renderer->draw(drawModel->get_VAO(), sh_manager->getShaderProgram(0));
 		// update other events like input handling
 		glfwPollEvents();
 		// put the stuff we’ve been drawing onto the display

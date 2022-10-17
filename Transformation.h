@@ -8,18 +8,23 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include "Shader.h"
+#include <vector>
 #include "Object.h"
+#include "Trotate.h"
 
 
 
-
-class Transformation: private Object
+class Transformation: public Object
 {
+public:
 
+	void addTransformation(Object* t);
+	glm::mat4 getMatrix();
+	void setModalMatrix();
 
-
-
+private:
+	vector <Object*> transformations;
+	glm::mat4 Model = glm::mat4(1.0f);
 };
 
 

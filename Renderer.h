@@ -18,7 +18,7 @@
 class Renderer
 {
 public:
-	void draw(GLuint, Object*, unsigned int);
+	void draw(GLuint,ShaderProgram*);
 	Renderer();
 	~Renderer();
 

@@ -1,10 +1,8 @@
 #include "Object.h"
 
 
-Object::Object()
-{
 
-	float angle = 0.80;
+
 
 
 	/*
@@ -24,34 +22,8 @@ Object::Object()
 
 	
 
-}
 
 
 
-void Object::setTeselation(glm::vec3 input)
-{
-	Model = glm::translate(glm::mat4(1.0f), input);
-}
-
-
-
-
-glm::mat4  Object::getMatrix()
-{
-	return Model;
-}
-
-//TO DO SHADER MANAGER // UDELAT MOZNO TRANFORMATION MANAGER
-unsigned int Object::inicialize(unsigned int programID)
-{
-	GLint idModelTransform = glGetUniformLocation(programID, "modelMatrix");// DAT DO SHADERPROGRAM ?
-	if (idModelTransform == -1)
-	{
-		cerr << "Unable to get uniform matrix location" << endl;
-		return -1;
-	}
-	glUseProgram(programID);
-	glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &Model[0][0]);
-
-	return 0;
-}
+//glm::mat4 Object::getMatrix(){ return glm::mat4(1.0f); }
+//glm::mat4 Object::getModalMatrix() { return glm::mat4(1.0f); }

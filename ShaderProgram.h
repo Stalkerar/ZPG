@@ -7,24 +7,30 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <stdio.h>
 #include"Shader.h"
+#include"Object.h"
+#include "Camera.h"
 
 
-
-
-
+class Camera;
 class ShaderProgram
 {
-
 public:
-	ShaderProgram(const std::string&, const std::string&);
+	ShaderProgram(const std::string& , const std::string& , Object*);
+	ShaderProgram(const std::string&, const std::string&, Camera*);
+
 	~ShaderProgram();
-	GLuint loadShaderProgram(const std::string& , const std::string& );
+
+	GLuint loadShaderProgram(const std::string&, const std::string&);
+	unsigned int sendModelShader();
+	unsigned int sendViewShader();
+	unsigned int sendProjectionShader();
 
 private:
-	GLuint programId,vs, fs;
-
-
+	GLuint programId , vs, fs;
+	Object* object;
+	Camera* camera;
 
 
 

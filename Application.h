@@ -28,27 +28,28 @@ using namespace std;
 #include <stdlib.h>
 #include "Object.h"
 #include "Renderer.h"
-
+#include "Transformation.h"
+#include "Trotate.h"
+#include "Camera.h"
 
 class Application
 {
 public:
 	void cursor_pos_callback(GLFWwindow* , double , double );
 	void run_scene();
-	void add_Object(Object*);
 	Application();
 	~Application();
-	Object* get_Object(int);
-
+	
 
 private:
 	GLFWwindow* window;
 	Object_model* drawModel;
 	Shader_Manager* sh_manager;
 	Object_model* drawModel_2;
-	Object** objects_arr;
 	Renderer* renderer;
-	int obj_indx = 0;
+	Camera* camera;
+
+
 
 
 

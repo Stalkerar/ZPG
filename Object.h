@@ -6,8 +6,6 @@
 #include <iostream>
 //#include "drawobj.h"
 #include"Obj_model.h"
-#include"Shader_manager.h"
-#include "Shader.h"
 
 using namespace std;
 
@@ -35,13 +33,12 @@ class Object
 {
 public:
 
-	Object();
-	void setTeselation(glm::vec3);
-	unsigned int inicialize(unsigned int);
-	glm::mat4 getMatrix();
-	~Object();
-private:
-	glm::mat4 Model = glm::mat4(1.0f);;
+	
+	virtual glm::mat4 getMatrix() = 0;
+	//virtual glm::mat4 getModalMatrix() = 0;
+	//~Object();
+
+	
 
 };
 

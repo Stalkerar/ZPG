@@ -5,9 +5,9 @@
 //Include GLFW  
 #include <GLFW/glfw3.h>  
 #include <cstdlib>
+#include <stdio.h>
 #include <fstream>
 #include <iostream>
-#include "Shader.h"
 #include "Object.h"
 #include "ShaderProgram.h"
 
@@ -17,8 +17,8 @@ public:
 	Shader_Manager();
 	~Shader_Manager();
 	void run();
-	void addShader(const std::string& , const std::string& );
-	ShaderProgram* getShaderProgram(int );
+	void addShader(const std::string&, const std::string&, Object*);
+	ShaderProgram* getShaderProgram(int);
 
 private:
 	
