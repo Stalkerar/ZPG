@@ -16,7 +16,7 @@ public:
 	void draw_object();
 	void set_VAO(GLuint);
 	GLuint get_VAO();
-	void inicialize(GLuint, int);
+	void inicialize();
 
 private:
 	int neco = 0;

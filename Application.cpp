@@ -1,33 +1,27 @@
 ﻿#include "Application.h"
 
 
+
+GLFWwindow* Application::getWindow()
+{
+	return this->window;
+}
+
+
+
+
+
 static void error_callback(int error, const char* description) { fputs(description, stderr); }
-
-
-
-// Projection matrix : 45� Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.01f, 100.0f);
-
-// Camera matrix
-glm::mat4 View = glm::lookAt(
-	glm::vec3(10, 10, 10), // Camera is at (4,3,-3), in World Space
-	glm::vec3(0, 0, 0), // and looks at the origin
-	glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-);
-// Model matrix : an identity matrix (model will be at the origin)
-//glm::mat4 Model = glm::mat4(1.0f);
-//Model = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0.0f, 1.0f, 0.0f));
-
-
 
 
 Application::Application()
 {
 	renderer = new Renderer();
-	//camera = new Camera();
+	camera = new Camera(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.f), glm::vec3(0.0f, 1.0f, 0.0f),nullptr);
 	Trotate*  trotation = new Trotate();
 	Trotate* trotation_2 = new Trotate();
-
+	Ttranslate* tmove = new Ttranslate(); 
+	Ttranslate* tmove2 = new Ttranslate();
 
 	glfwSetErrorCallback(error_callback);
 	if (!glfwInit()) {
@@ -51,7 +45,7 @@ Application::Application()
 
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
-
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	glewExperimental = GL_TRUE;
 	glewInit();
@@ -73,7 +67,6 @@ Application::Application()
 	glViewport(0, 0, width, height);
 
 
-	
 
 	
 	sh_manager = new Shader_Manager();
@@ -81,52 +74,67 @@ Application::Application()
 	
 	trotation->setRotation(45, glm::vec3(0.3f));
 	trotation_2->setRotation(0.14, glm::vec3(0.7f));
+	tmove->setTranslation(glm::vec3(1.5f, 2.f, 1.5f));
 	Transformation* object_1 = new Transformation();
-	object_1->addTransformation(trotation);
-	object_1->addTransformation(trotation_2);
+	Transformation* object_2 = new Transformation();
+	Transformation* object_3 = new Transformation();
+	Transformation* object_4 = new Transformation();
+
+	object_2->addTransformation(tmove);
+	tmove2->setTranslation(glm::vec3(1.5f, -2.f, 1.5f));
+	object_3->addTransformation(tmove2);
+
+
 	object_1->setModalMatrix();
-	
+	object_2->setModalMatrix();
+	object_3->setModalMatrix();
+
+	tmove2->setTranslation(glm::vec3(-1.5f, -2.f, 1.5f));
+	object_4->addTransformation(tmove2);
+	object_4->setModalMatrix();
 	
 
 	sh_manager->addShader("shaders/vs.shader", "shaders/fs.shader", object_1);
-
-	
-
-
-	drawModel_2 = new Object_model();
-	drawModel_2->inicialize(0,0);
-
-	
+	//sh_manager->addShader("shaders/vs.shader", "shaders/fs.shader", object_2);
 
 	drawModel = new Object_model();
-	drawModel->inicialize(0, 0);
+	drawModel->inicialize();
+
+	sh_manager->getShaderProgram(0)->setCamera(camera);
 
 
-
-
-
+	scene = new Scene(window, sh_manager);
+	scene->setCamera(camera);
+	scene->addObject(object_1);
+	scene->addObject(object_2);
+	scene->addObject(object_3);
+	scene->addObject(object_4);
 }
 
-
-
-
-void Application::cursor_pos_callback(GLFWwindow* window, double mouseX, double mouseY) {
-    printf("cursor_pos_callback %d, %d; %d, %d\n", (int)mouseX, (int)mouseY);
-}
 
 
 void Application::run_scene()
 {
-	
+	glEnable(GL_DEPTH_TEST);
 
 	while (!glfwWindowShouldClose(window)) {
 		// clear color and depth buffer
 		
-	    renderer->draw(drawModel->get_VAO(), sh_manager->getShaderProgram(0));
 		// update other events like input handling
-		glfwPollEvents();
+		this->scene->update();
+	    
+		renderer->draw(drawModel->get_VAO(), this->scene);
+		
+
+		
+
+		//glfwPollEvents();
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);
+		glFlush();
+
+		glBindVertexArray(0);
+		glUseProgram(0);
 	}
 
 	glfwDestroyWindow(window);

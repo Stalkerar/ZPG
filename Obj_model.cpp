@@ -1,5 +1,5 @@
 #include "Obj_model.h"
-
+#include "suzi_flat.h"
 
 
 Object_model::Object_model()
@@ -76,23 +76,21 @@ GLuint Object_model::get_VAO()
 	return VAO;
 }
 
-void Object_model::inicialize(GLuint vaIN,int point)
+void Object_model::inicialize()
 {
-	float points[] = {
-			 0.0f, 0.5f, 0.5f,
-			 0.5f, 0.5f, 0.0f,
-			 0.0f, -0.5f, 0.5f
-	};
-	VAO = vaIN;
+	//2880
+	//glDrawArrays(GL_TRIANGLES, 0, 2880);
+
 
 
 	glGenBuffers(1, &VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(sphere), sphere, GL_STATIC_DRAW);
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
-	glEnableVertexAttribArray(point);
+	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(point, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), NULL);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)3);
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 }

@@ -31,15 +31,18 @@ using namespace std;
 #include "Transformation.h"
 #include "Trotate.h"
 #include "Camera.h"
+#include "Scene.h"
+#include "Ttranslate.h"
 
 class Application
 {
 public:
-	void cursor_pos_callback(GLFWwindow* , double , double );
+	static void cursor_pos_callback(GLFWwindow* , double , double );
 	void run_scene();
 	Application();
 	~Application();
-	
+	GLFWwindow* getWindow();
+
 
 private:
 	GLFWwindow* window;
@@ -48,8 +51,8 @@ private:
 	Object_model* drawModel_2;
 	Renderer* renderer;
 	Camera* camera;
-
-
+	Scene* scene;
+\
 
 
 

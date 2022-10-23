@@ -23,6 +23,10 @@ void Shader_Manager::addShader(const std::string& vertexShaderFile, const std::s
 
 }
 
+int Shader_Manager::getCount()
+{
+	return this->shaderCount;
+}
 
 ShaderProgram* Shader_Manager::getShaderProgram(int idx)
 {

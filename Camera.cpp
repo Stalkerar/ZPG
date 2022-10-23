@@ -7,14 +7,19 @@ glm::mat4 Camera::getCamera()
 	this->updateCameraVectors();
 	this->ViewMatrix = glm::lookAt(this->position, this->position + this->front, this->up);
 
-
 	return this->ViewMatrix;
 }
 
-glm::vec3 Camera::getPosition()
+
+
+
+const glm::vec3 Camera::getPosition() 
 {
 	return this->position;
 }
+
+
+
 
 void Camera::updateInput(const float& dt, const int direction, const double& offsetX, const double& offsetY)
 {
@@ -45,10 +50,13 @@ void Camera::updateKeyboardInput(const float& dt, const int direction)
 
 }
 
+
+
 void Camera::updateMouseInput(const float& dt, const double& offsetX, const double& offsetY)
 {
 	this->pitch += static_cast<GLfloat>(offsetY) * this->sensitivity * dt;
 	this->yaw += static_cast<GLfloat>(offsetX) * this->sensitivity * dt;
+	
 
 	if (this->pitch > 80.f)
 	{

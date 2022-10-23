@@ -9,19 +9,19 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include "Shader.h"
-#include "Object.h"
-#include "Shader_manager.h"
-#include "Obj_model.h"
 
+#include "Obj_model.h"
+#include "Scene.h"
 
 class Renderer
 {
 public:
-	void draw(GLuint,ShaderProgram*);
+	void draw(GLuint,Scene*);
 	Renderer();
 	~Renderer();
 
+private:
+	int objCount = 0;
 
 };
 

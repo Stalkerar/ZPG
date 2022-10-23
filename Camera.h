@@ -30,7 +30,8 @@ class Camera
 public:
 	Camera(glm::vec3, glm::vec3, glm::vec3, ShaderProgram*);
 	glm::mat4 getCamera();
-	glm::vec3 getPosition();
+	glm::mat4 getProjection();
+	const glm::vec3 getPosition();
 	void updateInput(const float&, const int, const double&, const double&);
 	void updateMouseInput(const float&, const double&, const double&);
 	void updateKeyboardInput(const float&, const int);
@@ -40,11 +41,12 @@ private:
 	GLfloat sensitivity;
 	ShaderProgram* m_shader;
 	glm::mat4 ViewMatrix;
+	glm::mat4 ProjectionMatrix;
 	void updateCameraVectors();
 	glm::vec3 position;
-	glm::vec3 front;
-	glm::vec3 up;
-	glm::vec3 right;
+	glm::vec3 front = glm::vec3(1.0f);
+	glm::vec3 up = glm::vec3(1.0f);
+	glm::vec3 right = glm::vec3(1.0f);
 	glm::vec3 worldUp;
 	GLfloat pitch;
 	GLfloat yaw;

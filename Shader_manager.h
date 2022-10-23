@@ -19,6 +19,7 @@ public:
 	void run();
 	void addShader(const std::string&, const std::string&, Object*);
 	ShaderProgram* getShaderProgram(int);
+	int getCount();
 
 private:
 	
