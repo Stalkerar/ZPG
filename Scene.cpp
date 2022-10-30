@@ -52,33 +52,26 @@ void Scene::updateMouseInput()
 		this->firstMouse = false;
 	}
 
-	//Calc offset
 	this->mouseOffsetX = this->mouseX - this->lastMouseX;
 	this->mouseOffsetY = this->lastMouseY - this->mouseY;
 
-	//Set last X and Y
+
 	this->lastMouseX = this->mouseX;
 	this->lastMouseY = this->mouseY;
 
-	/*
-	//Move light
-	if (glfwGetMouseButton(this->window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
-	{
-		this->pointLights[0]->setPosition(this->camera.getPosition());
-	}
-	*/
+	
 }
 
 
 void Scene::updateKeyboardInput()
 {
-	//Program
+	
 	if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(this->window, GLFW_TRUE);
 	}
 
-	//Camera
+	
 	if (glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		this->camera->updateKeyboardInput(this->dt, FORWARD);
@@ -110,29 +103,35 @@ Object* Scene::getObject(int idx)
 {
 	return this->objects[idx];
 }
-
+/*
 void Scene::addObject(Object* in)
 {
 	this->objects[this->objectCount] = in;
 	this->objectCount++;
 
 }
+*/
 
 int Scene::getCountObject()
 {
 	return this->objectCount;
 }
 
-void Scene::updateUniforms(int idx)
+void Scene::updateUniforms(Object* obj_in)
 {
-	//Update view matrix (camera)
+	
 	this->ViewMatrix = this->camera->getCamera();
 	this->camPosition = this->camera->getPosition();
 	int size = this->objectCount;
 
 
 	
-	//this->shaders[SHADER_CORE_PROGRAM]->setVec3f(this->camera.getPosition(), "cameraPos");
+	this->shaderManager->getShaderProgram(0)->setVec3f(glm::vec3(0.0f, 0.0f, 0.0f), "lightPosition");//ANO
+	this->shaderManager->getShaderProgram(0)->setMat4fv(obj_in->getMatrix(), "modelMatrix");
+	this->shaderManager->getShaderProgram(0)->setMat4fv(this->ViewMatrix, "viewMatrix");
+	//this->shaderManager->getShaderProgram(0)->setBool(true, "useBlinn");
+	this->shaderManager->getShaderProgram(0)->setVec3f(this->camera->getPosition(), "posCamera"); //NE POPTAT
+
 
 
 	glfwGetFramebufferSize(this->window, &this->framebufferWidth, &this->framebufferHeight);
@@ -144,14 +143,8 @@ void Scene::updateUniforms(int idx)
 		this->farPlane
 	);
 
-
-
-	this->shaderManager->getShaderProgram(0)->setVec3f(this->camPosition, "lightPosition");
-	this->shaderManager->getShaderProgram(0)->setMat4fv(this->getObject(idx)->getMatrix(), "modelMatrix");
-
-	
 	this->shaderManager->getShaderProgram(0)->setMat4fv(this->ProjectionMatrix, "projectionMatrix");
-	this->shaderManager->getShaderProgram(0)->setMat4fv(this->ViewMatrix, "viewMatrix");
+
 
 
 }

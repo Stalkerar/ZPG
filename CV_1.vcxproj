@@ -133,8 +133,10 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Object_manager.cpp" />
     <ClCompile Include="Obj_model.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -148,20 +150,34 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="IObserver.h" />
+    <ClInclude Include="ISubject.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="models\bushes.h" />
+    <ClInclude Include="models\gift.h" />
+    <ClInclude Include="models\plain.h" />
+    <ClInclude Include="models\suzi_flat.h" />
+    <ClInclude Include="models\sphere.h" />
+    <ClInclude Include="models\tree.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Object_manager.h" />
     <ClInclude Include="Obj_model.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Shader_manager.h" />
-    <ClInclude Include="suzi_flat.h" />
     <ClInclude Include="Transformation.h" />
     <ClInclude Include="Trotate.h" />
     <ClInclude Include="Ttranslate.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fs.shader" />
+    <None Include="shaders\fs_blinn.shader" />
+    <None Include="shaders\fs_const.shader" />
+    <None Include="shaders\fs_lambert.shader" />
+    <None Include="shaders\fs_nocheck.shader" />
+    <None Include="shaders\fs_wong.shader" />
     <None Include="shaders\vs.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

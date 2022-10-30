@@ -10,19 +10,19 @@
 #include <fstream>
 #include <iostream>
 
-#include "Obj_model.h"
+#include "Object_manager.h"
 #include "Scene.h"
 
 class Renderer
 {
 public:
-	void draw(GLuint,Scene*);
+	void draw(Object_manager*,Scene*);
 	Renderer();
 	~Renderer();
 
 private:
 	int objCount = 0;
-
+	int modelCount = 0;
 };
 
 

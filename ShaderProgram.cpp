@@ -31,6 +31,9 @@ GLuint  ShaderProgram::loadShaderProgram(const std::string& vertexShaderFile, co
 	glDeleteShader(vs);
 	glDeleteShader(fs);
 
+	glUseProgram(0);
+
+
 	return bufferID;
 }
 
@@ -62,11 +65,11 @@ void ShaderProgram::setVec3f(glm::vec3 value, const GLchar* name)
 	this->use();
 
 	GLint idModelTransform = glGetUniformLocation(this->programId, name);
-	if (idModelTransform == -1)
+  	if (idModelTransform == -1)
 	{
 		cerr << "Unable to get uniform matrix location" << endl;
 	}
-	glUniform3fv(idModelTransform, 1, glm::value_ptr(value));
+ 	glUniform3fv(idModelTransform, 1, glm::value_ptr(value));
 	this->unuse();
 }
 
@@ -88,13 +91,22 @@ void ShaderProgram::setMat4fv(glm::mat4 value, const GLchar* name)
 
 
 
-
-
-
-ShaderProgram::ShaderProgram(const std::string& vertexShaderFile, const std::string& fragmentShaderFile,Object* in_object)
+void ShaderProgram::setBool(bool value, const GLchar* name)
 {
-	this->programId = this->loadShaderProgram(vertexShaderFile,fragmentShaderFile);
-	this->object = in_object;
+	this->use();
+	GLint idModelTransform = glGetUniformLocation(this->programId, name);
+	if (idModelTransform == -1)
+	{
+		cerr << "Unable to get uniform matrix location" << endl;
+	}
+	glUniform1i(idModelTransform, (value));
+}
+
+
+
+ShaderProgram::ShaderProgram(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+{
+	this->programId = this->loadShaderProgram(vertexShaderFile, fragmentShaderFile);
 }
 
 ShaderProgram::ShaderProgram(const std::string& vertexShaderFile, const std::string& fragmentShaderFile, Camera* in_camera)
@@ -110,8 +122,3 @@ void ShaderProgram::setCamera(Camera* in)
 }
 
 
-
-Object* ShaderProgram::getObject()
-{
-	return this->object;
-}

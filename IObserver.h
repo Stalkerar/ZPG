@@ -1,7 +1,11 @@
+#pragma once
+#ifndef _IOBSERVE
+#define _IOBSERVE
+
 #include <stdio.h>
 #include <iostream>
+//#include "drawobj.h"
 
-#include "Application.h"
 
 using namespace std;
 
@@ -21,26 +25,11 @@ using namespace std;
 
 #include <stdlib.h>
 
+class IObserver {
+public:
+	virtual ~IObserver() {};
+	virtual void Update(const std::string& message_from_subject) = 0;
+};
 
 
-
-
-
-
-int main()
-{
-	int option;
-	cout << "Options: " << endl;
-	cout << "1 -> Phong sphere test" << endl;
-	cout << "2 -> Wrong light test - with checker" << endl;
-	cout << "3 -> Wrong light test - with  nochecker" << endl;
-	cout << "4 -> Multiple objects test" << endl;
-	cout << " Please choose: ";
-	cin >> option;
-
-	Application* app = new Application(option);
-	app->run_scene();
-	
-	
-	return 1;
-}
+#endif

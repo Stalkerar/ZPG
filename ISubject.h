@@ -1,7 +1,11 @@
+#pragma once
+#ifndef _ISUBJECT
+#define _ISUBJECT
+
 #include <stdio.h>
 #include <iostream>
+//#include "drawobj.h"
 
-#include "Application.h"
 
 using namespace std;
 
@@ -20,27 +24,15 @@ using namespace std;
 //Include the standard C++ headers  
 
 #include <stdlib.h>
+#include "IObserver.h"
+
+class ISubject {
+public:
+	virtual ~ISubject() {};
+	virtual void Attach(IObserver* observer) = 0;
+	virtual void Detach(IObserver* observer) = 0;
+	virtual void Notify() = 0;
+};
 
 
-
-
-
-
-
-int main()
-{
-	int option;
-	cout << "Options: " << endl;
-	cout << "1 -> Phong sphere test" << endl;
-	cout << "2 -> Wrong light test - with checker" << endl;
-	cout << "3 -> Wrong light test - with  nochecker" << endl;
-	cout << "4 -> Multiple objects test" << endl;
-	cout << " Please choose: ";
-	cin >> option;
-
-	Application* app = new Application(option);
-	app->run_scene();
-	
-	
-	return 1;
-}
+#endif

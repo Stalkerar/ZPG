@@ -1,50 +1,72 @@
 #include "Obj_model.h"
-#include "suzi_flat.h"
+#include "models/sphere.h"
+#include "models/bushes.h"
+#include "models/tree.h"
+#include "models/gift.h"
+#include "models/suzi_flat.h"
+#include "models/plain.h"
 
 
-Object_model::Object_model()
+Object_model::Object_model(int type)
 {
-	float positions[] = {
-		100.0f, 100.0f, 0.0f, 0.0f, //0
-		200.0f, 100.0f, 1.0f, 0.0f, //1
-		200.0f, 200.0f, 1.0f, 1.0f, //2
-		100.0f, 200.0f, 0.0f, 1.0f	//3
-	};
+	this->drawCount = (sizeof(tree) / sizeof(float))/6;
+	switch (type) {
+		case 1:
+			glGenBuffers(1, &VBO); // generate the VBO
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(sphere), sphere, GL_STATIC_DRAW);
+			this->drawCount = (sizeof(sphere) / sizeof(float)) / 6;
+			break;
+		case 2:
+			glGenBuffers(1, &VBO); // generate the VBO
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(plain), plain, GL_STATIC_DRAW);
+			this->drawCount = (sizeof(plain) / sizeof(float)) / 6;
+			break;
+		case 3:
+			glGenBuffers(1, &VBO); // generate the VBO
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(tree), tree, GL_STATIC_DRAW);
+			this->drawCount = (sizeof(tree) / sizeof(float)) / 6;
+			break;
+		case 4:
+			glGenBuffers(1, &VBO); // generate the VBO
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(gift), gift, GL_STATIC_DRAW);
+			this->drawCount = (sizeof(gift) / sizeof(float)) / 6;
+			break;
+		case 5:
+			glGenBuffers(1, &VBO); // generate the VBO
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(suzi_flat), suzi_flat, GL_STATIC_DRAW);
+			this->drawCount = (sizeof(suzi_flat) / sizeof(float)) / 6;
+			break;
+		case 6:
+			glGenBuffers(1, &VBO); // generate the VBO
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(plain1), plain1, GL_STATIC_DRAW);
+			this->drawCount = (sizeof(plain1) / sizeof(float)) / 6;
+			break;
+		default:
+			cerr << "Error model choise" << endl;
+			break;
 
-	float points[] = {
-			 0.0f, 0.5f, 0.5f,
-			 0.5f, 0.5f, 0.0f,
-		     0.0f, -0.5f, 0.5f
-	};
+
+	}
+
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), NULL);
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
 	
-	float points_1[] = {
-	  0.0f, 0.0f, -0.5f,
-	  -0.5f, 0.0f, 0.0f,
-	 -0.5f, -0.5f, 0.5f
-	};
 	
-	
-	
-	
-
-	//GLuint VAO = 0;
-	//glGenVertexArrays(1, &VAO); //generate the VAO
-
-
-
-	//glBindVertexArray(VAO); //bind the VAO
-
-	//glBindVertexArray(VAO_2);
-
-	//glEnableVertexAttribArray(0); //enable vertex attributes
-
-
-
-	
-	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(points), (GLvoid*)0);
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	
 
 }
@@ -53,16 +75,39 @@ Object_model::~Object_model()
 {
 }
 
+void Object_model::addObject(Object* in)
+{
+	this->objects.push_back(in);
+	this->objectCount++;
+}
+
+int Object_model::getCount()
+{
+	return this->objectCount;
+}
+
+Object* Object_model::getObject(int idx)
+{
+	return this->objects[idx];
+}
+
+
+GLsizei Object_model::getDrawCount()
+{
+	return this->drawCount;
+}
+
+
 void Object_model::draw_object()
 {
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-
+	glDrawArrays(GL_TRIANGLES, 0, this->drawCount);
 	
-	//glBindVertexArray(VAO_2);
+
 }
 
 void Object_model::set_VAO(GLuint input)
@@ -81,16 +126,4 @@ void Object_model::inicialize()
 	//2880
 	//glDrawArrays(GL_TRIANGLES, 0, 2880);
 
-
-
-	glGenBuffers(1, &VBO); // generate the VBO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(sphere), sphere, GL_STATIC_DRAW);
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), NULL);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)3);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 }

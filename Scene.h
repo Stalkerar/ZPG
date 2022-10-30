@@ -3,7 +3,7 @@
 #define _SCENE
 #include <stdio.h>
 #include <iostream>
-//#include "drawobj.h"
+
 #include "Camera.h"
 #include "Shader_manager.h"
 
@@ -15,7 +15,7 @@ public:
 	void updateKeyboardInput();
 	void setCamera(Camera *);
 	Scene(GLFWwindow*,Shader_Manager*);
-	void updateUniforms(int);
+	void updateUniforms(Object*);
 	void runModel();
 	void updateDt();
 	void update();

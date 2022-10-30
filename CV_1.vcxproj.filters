@@ -16,6 +16,9 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{3d67cb36-aa12-4e46-87fa-3aa52ff664a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="models">
+      <UniqueIdentifier>{f68eaf2b-654a-4b1c-8d1d-ff71645a0e95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -57,6 +60,12 @@
     <ClCompile Include="Ttranslate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Object_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Obj_model.h">
@@ -92,10 +101,37 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="suzi_flat.h">
+    <ClInclude Include="Ttranslate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ttranslate.h">
+    <ClInclude Include="Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="models\suzi_flat.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="models\sphere.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="models\gift.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="models\tree.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="models\bushes.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="Object_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="models\plain.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISubject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,6 +140,21 @@
       <Filter>shaders</Filter>
     </None>
     <None Include="shaders\fs.shader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\fs_wong.shader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\fs_nocheck.shader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\fs_blinn.shader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\fs_lambert.shader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\fs_const.shader">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>

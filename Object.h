@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <iostream>
 //#include "drawobj.h"
-#include"Obj_model.h"
+
 
 using namespace std;
 

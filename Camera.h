@@ -3,7 +3,7 @@
 #define _CAMERA
 #include <stdio.h>
 #include <iostream>
-//#include "drawobj.h"
+
 
 
 using namespace std;

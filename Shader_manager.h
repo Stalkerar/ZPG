@@ -17,7 +17,7 @@ public:
 	Shader_Manager();
 	~Shader_Manager();
 	void run();
-	void addShader(const std::string&, const std::string&, Object*);
+	void addShader(const std::string&, const std::string&);
 	ShaderProgram* getShaderProgram(int);
 	int getCount();
 

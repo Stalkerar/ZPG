@@ -12,29 +12,26 @@ Renderer::Renderer()
 
 
 
-void Renderer::draw(GLuint va,Scene* sp)
+void Renderer::draw(Object_manager* in_ob,Scene* sp)
 {
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	//sp->sendModelShader();
-	/*
-	sp->sendViewShader();
-	sp->sendProjectionShader();
-	*/
-	this->objCount = sp->getCountObject();
+	
 
-	for (int i = 0; i < this->objCount; i++)
+	this->modelCount = in_ob->getmodelCount();
+
+
+	for (int j = 0; j < this->modelCount; j++)
 	{
-		sp->updateUniforms(i);
-		glBindVertexArray(va);
-		glDrawArrays(GL_TRIANGLES, 0, 2880);
+		this->objCount = in_ob->getModel(j)->getCount();
+		for (int i = 0; i < this->objCount; i++)
+		{
+
+			sp->updateUniforms(in_ob->getModel(j)->getObject(i));
+			glBindVertexArray(in_ob->getModel(j)->get_VAO());
+			glDrawArrays(GL_TRIANGLES, 0, in_ob->getModel(j)->getDrawCount());
+
+		}
 
 	}
-
-	
-	//glUseProgram(0);
-
-	
 
 
 

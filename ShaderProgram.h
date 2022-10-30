@@ -17,7 +17,7 @@ class Camera;
 class ShaderProgram
 {
 public:
-	ShaderProgram(const std::string& , const std::string& , Object*);
+	ShaderProgram(const std::string& , const std::string&);
 	ShaderProgram(const std::string&, const std::string&, Camera*);
 
 	~ShaderProgram();
@@ -26,16 +26,16 @@ public:
 	unsigned int sendModelShader();
 	unsigned int sendViewShader();
 	unsigned int sendProjectionShader();
-	void setVec3f(glm::vec3, const GLchar* nme);
+	void setVec3f(glm::vec3, const GLchar* );
 	void setVec4f(glm::vec4 , const GLchar* );
+	void setBool(bool, const GLchar*);
 	void use();
 	void unuse();
 	unsigned int sendScene();
 	void setMat4fv(glm::mat4 , const GLchar* );
-	Object* getObject();
+
 private:
 	GLuint programId , vs, fs;
-	Object* object;
 	Camera* camera;
 
 

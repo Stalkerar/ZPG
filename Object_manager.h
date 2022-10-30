@@ -1,7 +1,11 @@
+#pragma once
+#ifndef _OBJECT_MANAGER
+#define _OBJECT_MANAGER
+
 #include <stdio.h>
 #include <iostream>
+//#include "drawobj.h"
 
-#include "Application.h"
 
 using namespace std;
 
@@ -20,27 +24,25 @@ using namespace std;
 //Include the standard C++ headers  
 
 #include <stdlib.h>
+#include "Obj_model.h"
 
 
-
-
-
-
-
-int main()
+class Object_manager
 {
-	int option;
-	cout << "Options: " << endl;
-	cout << "1 -> Phong sphere test" << endl;
-	cout << "2 -> Wrong light test - with checker" << endl;
-	cout << "3 -> Wrong light test - with  nochecker" << endl;
-	cout << "4 -> Multiple objects test" << endl;
-	cout << " Please choose: ";
-	cin >> option;
+public:
+	Object_manager();
+	int getmodelCount();
+	Object_model* getModel(int);
+	void addModel(int);
 
-	Application* app = new Application(option);
-	app->run_scene();
-	
-	
-	return 1;
-}
+
+private:
+	int objectCount = 0;
+	Object_model** modelArr;
+
+
+
+
+};
+
+#endif

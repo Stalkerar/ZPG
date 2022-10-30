@@ -4,10 +4,7 @@
 
 #include <stdio.h>
 #include <iostream>
-//#include "drawobj.h"
-#include"Obj_model.h"
-#include"Shader_manager.h"
-#include "Shader.h"
+
 
 using namespace std;
 
@@ -26,6 +23,9 @@ using namespace std;
 //Include the standard C++ headers  
 
 #include <stdlib.h>
+#include"Obj_model.h"
+#include"Shader_manager.h"
+#include "Shader.h"
 #include "Object.h"
 #include "Renderer.h"
 #include "Transformation.h"
@@ -33,26 +33,27 @@ using namespace std;
 #include "Camera.h"
 #include "Scene.h"
 #include "Ttranslate.h"
+#include "Object_manager.h"
 
 class Application
 {
 public:
 	static void cursor_pos_callback(GLFWwindow* , double , double );
 	void run_scene();
-	Application();
+	Application(int);
 	~Application();
 	GLFWwindow* getWindow();
+	void inicialization();
 
 
 private:
 	GLFWwindow* window;
-	Object_model* drawModel;
 	Shader_Manager* sh_manager;
-	Object_model* drawModel_2;
+	Object_manager* ob_manager;
 	Renderer* renderer;
 	Camera* camera;
 	Scene* scene;
-\
+	
 
 
 
