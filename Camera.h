@@ -21,11 +21,12 @@ using namespace std;
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 #include <vector>
 #include "ShaderProgram.h"
+#include "ISubject.h"
 
 enum direction {FORWARD = 0, BACK,LEFT,RIGHT};
 
 class ShaderProgram;
-class Camera
+class Camera: public ISubject
 {
 public:
 	Camera(glm::vec3, glm::vec3, glm::vec3, ShaderProgram*);
@@ -35,6 +36,9 @@ public:
 	void updateInput(const float&, const int, const double&, const double&);
 	void updateMouseInput(const float&, const double&, const double&);
 	void updateKeyboardInput(const float&, const int);
+	void Attach(IObserver* );
+	void Detach(IObserver* );
+	void Notify();
 
 private:
 	GLfloat movementSpeed;

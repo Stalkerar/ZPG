@@ -1,5 +1,15 @@
 #include "ShaderProgram.h"
 
+
+void ShaderProgram::Update(const std::string& message_from_subject)
+{
+
+}
+
+ShaderProgram::~ShaderProgram()  {
+
+}
+
 GLuint  ShaderProgram::loadShaderProgram(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
 {
 	GLuint bufferID = 0;

@@ -11,10 +11,10 @@
 #include"Shader.h"
 #include"Object.h"
 #include "Camera.h"
-
+#include "IObserver.h"
 
 class Camera;
-class ShaderProgram
+class ShaderProgram: public IObserver
 {
 public:
 	ShaderProgram(const std::string& , const std::string&);
@@ -33,6 +33,7 @@ public:
 	void unuse();
 	unsigned int sendScene();
 	void setMat4fv(glm::mat4 , const GLchar* );
+	void Update(const std::string& );
 
 private:
 	GLuint programId , vs, fs;

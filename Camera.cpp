@@ -1,6 +1,19 @@
 #include "Camera.h"
 
+void Camera::Detach(IObserver* observer)
+{
 
+}
+
+void Camera::Attach(IObserver* observer)
+{
+
+}
+
+void Camera::Notify()
+{
+
+}
 
 glm::mat4 Camera::getCamera()
 {
