@@ -1,8 +1,6 @@
 DALSI SHADERY -> osvetleni 
 KAMERA DODELAT 
 observe = shader se meni kdyz nastava zmena kamery a svetlo
-VBO po trech
-misto normalove - modalni\
-normala location = 1
+shader uchovava info neni treba perma prepisovat
+
 prekopat transformace dedeni z tranformaci 
-object -> transformace
