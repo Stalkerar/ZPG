@@ -1,7 +1,7 @@
 DALSI SHADERY -> osvetleni 
 KAMERA DODELAT 
 observe = shader se meni kdyz nastava zmena kamery a svetlo
-shader uchovava info neni treba perma prepisovat
+shader uchovava info neni treba perma prepisovat//ZAKAZ POSILAT VSE POKAZDE
 pointLight = pozice/utlum
 directLight = utlum
 reflectLight = pozice / utlum/uhel
