@@ -5,5 +5,5 @@ reflectLight = pozice / utlum/uhel ---> podedit
 
 stahnout a rozjet SOIL, easy textury load
 uv souradnice
-
+opravit prevod do homo worldpos3 = worldPos.xyz/worldPos.w
 
