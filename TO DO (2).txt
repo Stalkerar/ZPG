@@ -6,4 +6,5 @@ reflectLight = pozice / utlum/uhel ---> podedit
 stahnout a rozjet SOIL, easy textury load
 uv souradnice
 opravit prevod do homo worldpos3 = worldPos.xyz/worldPos.w -> pos musi jit z vertexu jako vec4
+pridat princip prochazeni, drzi na jedne plose
 
