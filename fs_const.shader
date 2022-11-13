@@ -5,8 +5,6 @@ in vec3 vs_normal;
 out vec4 frag_colour;
 
 
-uniform vec3 posCamera; //POPTAT SE
-uniform vec3 lightPosition;
 
 void main() {
 

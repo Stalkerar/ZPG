@@ -2,6 +2,46 @@
 
 
 
+Object::Object(ShaderProgram* in_sh,Texture* in_tx)
+{
+	this->myShader = in_sh;
+	this->texture = in_tx;
+}
+
+Texture* Object::getTexture()
+{
+	return this->texture;
+}
+
+ShaderProgram* Object::getShaderProgram()
+{
+	return this->myShader;
+}
+
+
+glm::mat4 Object::getMatrix()
+{
+	return Model;
+}
+
+
+
+void Object::addTransformation(Transformation* t)
+{
+	this->transformations.push_back(t);
+}
+
+void Object::setModalMatrix()
+{
+
+	glm::mat4 buffer = this->Model;
+
+	for (int i = 0; i < this->transformations.size(); i++)
+	{
+		buffer *= this->transformations[i]->getMatrix();
+	}
+	this->Model = buffer;
+}
 
 
 

@@ -5,6 +5,7 @@
 #include "models/gift.h"
 #include "models/suzi_flat.h"
 #include "models/plain.h"
+#include "models/texture_test.h"
 
 
 Object_model::Object_model(int type)
@@ -47,6 +48,13 @@ Object_model::Object_model(int type)
 			glBufferData(GL_ARRAY_BUFFER, sizeof(plain1), plain1, GL_STATIC_DRAW);
 			this->drawCount = (sizeof(plain1) / sizeof(float)) / 6;
 			break;
+		case 7:
+			glGenBuffers(1, &VBO); // generate the VBO
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(texture1), texture1, GL_STATIC_DRAW);
+			this->drawCount = (sizeof(texture1) / sizeof(float)) / 6;
+			break;
+
 		default:
 			cerr << "Error model choise" << endl;
 			break;
@@ -60,13 +68,14 @@ Object_model::Object_model(int type)
 
 
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), NULL);
 	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), NULL);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(3 * sizeof(float)));
 	
-	
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(6 * sizeof(float)));
 	
 
 }
@@ -98,13 +107,17 @@ GLsizei Object_model::getDrawCount()
 }
 
 
-void Object_model::draw_object()
+void Object_model::draw_object(int idx)
 {
-
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	//glClearColor(0.f, 0.f, 0.f, 1.f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
+	this->objects[idx]->getTexture()->unbind();
 	glBindVertexArray(VAO);
+	this->objects[idx]->getTexture()->bind(this->objects[idx]->getTexture()->getId());
+	this->objects[idx]->getShaderProgram()->setInteger(this->objects[idx]->getTexture()->getId(), "textureUnitID");
+	this->objects[idx]->getShaderProgram()->setMat4fv(this->objects[idx]->getMatrix(), "modelMatrix");
+
 	glDrawArrays(GL_TRIANGLES, 0, this->drawCount);
 	
 

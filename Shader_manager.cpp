@@ -16,9 +16,9 @@ Shader_Manager::~Shader_Manager()
 
 }
 
-void Shader_Manager::addShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+void Shader_Manager::addShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile,bool static_state,bool dynamic_state)
 {
-	this->shaders[this->shaderCount] = new ShaderProgram(vertexShaderFile, fragmentShaderFile);
+	this->shaders[this->shaderCount] = new ShaderProgram(vertexShaderFile, fragmentShaderFile, static_state, dynamic_state);
 	this->shaderCount++;
 
 }

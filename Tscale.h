@@ -1,6 +1,6 @@
 #pragma once
-#ifndef _TRANSFORMATION
-#define _TRANSFORMATION
+#ifndef _TSCALE
+#define _TSCALE
 
 //Include GLM  
 #include <glm/vec3.hpp> // glm::vec3
@@ -9,20 +9,21 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
 
+#include "Transformation.h"
 
-
-
-class Transformation
+class Tscale : public Transformation
 {
 public:
-	
-	virtual glm::mat4 getMatrix() = 0;
-	
+	void setScale(glm::vec3);
+	glm::mat4 getMatrix();
+
+private:
+	glm::mat4 Model;
+
 };
 
-
-
-
-
-#endif 
+#endif

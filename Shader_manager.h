@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
-#include "Object.h"
+
 #include "ShaderProgram.h"
 
 class Shader_Manager
@@ -17,7 +17,7 @@ public:
 	Shader_Manager();
 	~Shader_Manager();
 	void run();
-	void addShader(const std::string&, const std::string&);
+	void addShader(const std::string&, const std::string&,bool static_state,bool dynamic_state);
 	ShaderProgram* getShaderProgram(int);
 	int getCount();
 

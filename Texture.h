@@ -1,7 +1,11 @@
+#pragma once
+#ifndef _TEXTURE
+#define _TEXTURE
+
 #include <stdio.h>
 #include <iostream>
+//#include "drawobj.h"
 
-#include "Application.h"
 
 using namespace std;
 
@@ -20,19 +24,25 @@ using namespace std;
 //Include the standard C++ headers  
 
 #include <stdlib.h>
+#include <vector>
+#include <SOIL2/SOIL2.h>
+#include "ShaderProgram.h"
 
 
-
-
-
-
-
-int main()
+class Texture
 {
-	int option = 0;
-	Application* app = new Application(option);
-	app->run_scene();
-	
-	
-	return 1;
-}
+public:
+	Texture(const char* fileName);
+	GLint getId();
+	void bind(const GLint texture_unit);
+	void unbind();
+
+private:
+
+	GLuint id = 0;
+
+
+
+};
+
+#endif

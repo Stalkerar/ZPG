@@ -31,7 +31,7 @@ class Camera: public ISubject
 public:
 	Camera(glm::vec3, glm::vec3, glm::vec3, ShaderProgram*);
 	glm::mat4 getCamera();
-	glm::mat4 getProjection();
+	glm::vec3 getFront();
 	const glm::vec3 getPosition();
 	void updateInput(const float&, const int, const double&, const double&);
 	void updateMouseInput(const float&, const double&, const double&);
@@ -55,6 +55,7 @@ private:
 	GLfloat pitch;
 	GLfloat yaw;
 	GLfloat roll;
+	std::vector<IObserver*> list_observer_;
 };
 
 #endif

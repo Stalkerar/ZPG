@@ -2,16 +2,21 @@
 #ifndef _TRANSLATE
 #define _TRANSLATE
 
-#include <GL/glew.h>
-//Include GLFW  
-#include <GLFW/glfw3.h>  
-#include <cstdlib>
+//Include GLM  
+#include <glm/vec3.hpp> // glm::vec3
+#include <glm/vec4.hpp> // glm::vec4
+#include <glm/mat4x4.hpp> // glm::mat4
+#include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
+#include <glm/gtc/type_ptr.hpp> // glm::value_ptr
+
+
 #include <fstream>
 #include <iostream>
 
-#include "Object.h"
 
-class Ttranslate : public Object
+#include "Transformation.h"
+
+class Ttranslate : public Transformation
 {
 public:
 	void setTranslation(glm::vec3);

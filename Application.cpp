@@ -40,6 +40,7 @@ void Application::inicialization()
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	
 
 	glewExperimental = GL_TRUE;
 	glewInit();
@@ -68,108 +69,81 @@ Application::Application(int option)
 	this->inicialization();
 	sh_manager = new Shader_Manager();
 	ob_manager = new Object_manager();
+	lh_manager = new Light_manager();
+	tx_manager = new Texture_manager();
+
+	Texture* tex2 = new Texture("textures/wooden_fence.png");
+	Texture* tex1 = new Texture("textures/grass.png");
 	renderer = new Renderer();
 	camera = new Camera(glm::vec3(-0.4f, 0.3f, 6.0f), glm::vec3(0.0f, 0.0f, 1.f), glm::vec3(0.0f, 1.0f, 0.0f),nullptr);
-	Ttranslate* tmove = new Ttranslate(); 
-
-	if (option == 1)
-	{
-		Transformation* object_1 = new Transformation();
-		Transformation* object_2 = new Transformation();
-		Transformation* object_3 = new Transformation();
-		Transformation* object_4 = new Transformation();
-
-		sh_manager->addShader("shaders/vs.shader", "shaders/fs_wong.shader");
-		ob_manager->addModel(1); // 1 -> model sphere
-
-		tmove->setTranslation(glm::vec3(1.5f, -1.5f, 0.f));
-		object_1->addTransformation(tmove);
-		object_1->setModalMatrix();
-		ob_manager->getModel(0)->addObject(object_1);
-
-		tmove->setTranslation(glm::vec3(1.5f, 1.5f, 0.f));
-		object_2->addTransformation(tmove);
-		object_2->setModalMatrix();
-		ob_manager->getModel(0)->addObject(object_2);
-
-		tmove->setTranslation(glm::vec3(-1.5f, 1.5f, 0.f));
-		object_3->addTransformation(tmove);
-		object_3->setModalMatrix();
-		ob_manager->getModel(0)->addObject(object_3);
-
-		tmove->setTranslation(glm::vec3(-1.5f, -1.5f, 0.f));
-		object_4->addTransformation(tmove);
-		object_4->setModalMatrix();
-		ob_manager->getModel(0)->addObject(object_4);
+	pointLight = new PointLight(glm::vec3(-5.f, 4.f, 6.f), glm::vec3(0.06f, 0.06f, 0.06f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.f, 1.f, 1.f), 1.0f, 0.09f, 0.032f);
+	PointLight* p1 = new PointLight(glm::vec3(5.f, 4.f, 6.f), glm::vec3(0.06f, 0.06f, 1.06f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(0.06f, 0.06f, 1.06f), 0.5f, 0.7f, 0.032f);
+	PointLight* p2 = new PointLight(glm::vec3(5.f, 4.f, -6.f), glm::vec3(1.6f, 0.06f, 0.06f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.6f, 0.06f, 0.06f), 1.f, 0.9f, 0.1f);
+	DirectLight* d1 = new DirectLight(glm::vec3(1.f,4.f,25.f), glm::vec3(0.05f, 0.05f, 0.08f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
+	SpotLight* s1 = new SpotLight(glm::vec3(-0.4f, 0.3f, 6.0f), glm::vec3(-0.4f, 0.3f, 6.0f), glm::vec3(0.05f, 0.05f, 0.08f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.6f, 1.06f, 0.06f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(35.0f)));
 
 
-	}
-	if (option == 2)
-	{
-		Transformation* object_1 = new Transformation();
-		sh_manager->addShader("shaders/vs.shader", "shaders/fs.shader");
-		ob_manager->addModel(1); // 1 -> model sphere
-		tmove->setTranslation(glm::vec3(1.f, 0.f, 1.f));
-		object_1->addTransformation(tmove);
-		object_1->setModalMatrix();
-		ob_manager->getModel(0)->addObject(object_1);
+	Ttranslate* tmove = new Ttranslate();
+	Ttranslate* move = new Ttranslate();
+	Tscale* scale = new Tscale();
+
+	
+	sh_manager->addShader("shaders/vs.shader", "shaders/fs_wong.shader",false,true);
+	sh_manager->addShader("shaders/vs.shader", "shaders/fs_const.shader", true, false);
+	sh_manager->addShader("shaders/vs.shader", "shaders/fs_multipleLight.shader", false, true);
+
+	lh_manager->addPointLight(pointLight);
+	lh_manager->addPointLight(p1);
+	lh_manager->addPointLight(p2);
+	lh_manager->setDirectLight(d1);
+	lh_manager->setSpotLight(s1);
+
+	camera->Attach(sh_manager->getShaderProgram(2));
+	camera->Attach(sh_manager->getShaderProgram(1));
+
+	//Object* object_1 = new Object(sh_manager->getShaderProgram(0));
+	Object* floor = new Object(sh_manager->getShaderProgram(2),tex1);
+	Object* floor2 = new Object(sh_manager->getShaderProgram(2),tex2);
 
 
-	}
-	if (option == 3)
-	{
-		Transformation* object_1 = new Transformation();
-		sh_manager->addShader("shaders/vs.shader", "shaders/fs_nocheck.shader");
-		ob_manager->addModel(1); // 1 -> model sphere
-		tmove->setTranslation(glm::vec3(1.f, 0.f, 1.f));
-		object_1->addTransformation(tmove);
-		object_1->setModalMatrix();
-		ob_manager->getModel(0)->addObject(object_1);
+	ob_manager->addModel(1); // 1 -> model sphere
+	ob_manager->addModel(7);
 
-	}
-	if (option == 4)
-	{
-		sh_manager->addShader("shaders/vs.shader", "shaders/fs_wong.shader");
-		ob_manager->addModel(1); // 1 -> model sphere
-		ob_manager->addModel(2);
-		ob_manager->addModel(3);
-		ob_manager->addModel(4);
-		ob_manager->addModel(5);
-		ob_manager->addModel(6);
+	scale->setScale(glm::vec3(10.0f, 10.0f, 10.0f));
+	tmove->setTranslation(glm::vec3(4.f, 1.5f, 4.f));
+	move->setTranslation(glm::vec3(1.f, 0.f, 0.f));
+	
+	//object_1->addTransformation(tmove);
+
+
+	floor->addTransformation(move);
+	floor->addTransformation(scale);
+	floor2->addTransformation(tmove);
+	floor2->addTransformation(scale);
 		
-		
-		for (int i = 0 ; i < ob_manager->getmodelCount(); i++)
-		{
-			
-			for (int j = 0; j < 21; j++)
-			{
-				Transformation* object = new Transformation();
-				Ttranslate* move = new Ttranslate();
-				float rx = 10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (15 - (-15))));
-				float ry = 10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (15 - (-15))));
-
-				move->setTranslation(glm::vec3(rx, 0, ry));
-				object->addTransformation(move);
-				object->setModalMatrix();
-
-				ob_manager->getModel(i)->addObject(object);
-				
-			}
-
-		}
-
-		
+	
+	//object_2->addTransformation(scale);
+	//object_1->setModalMatrix();
+	floor2->setModalMatrix();
+	floor->setModalMatrix();
 
 
 
 
 
-	}
 
-
-	scene = new Scene(window, sh_manager);
+	//ob_manager->getModel(0)->addObject(object_1);
+	//ob_manager->getModel(0)->addObject(object_2);
+	ob_manager->getModel(1)->addObject(floor);
+	ob_manager->getModel(1)->addObject(floor2);
+	scene = new Scene(window, sh_manager,lh_manager, tx_manager);
 	scene->setCamera(camera);
+	scene->setLight(pointLight);
 
+
+
+
+	
 }
 
 
@@ -185,6 +159,8 @@ void Application::run_scene()
 {
 	glEnable(GL_DEPTH_TEST);
 
+	this->renderer->init(this->ob_manager, this->scene);
+	
 	while (!glfwWindowShouldClose(window)) {
 		
 		glClearColor(0.f, 0.f, 0.f, 1.f);

@@ -17,6 +17,8 @@ class Renderer
 {
 public:
 	void draw(Object_manager*,Scene*);
+	void init(Object_manager*, Scene*);
+
 	Renderer();
 	~Renderer();
 

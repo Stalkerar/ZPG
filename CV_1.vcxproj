@@ -104,14 +104,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\PG\lib\glew-2.2.0\include;D:\PG\lib\glm-master;D:\PG\lib\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PG\lib\glew-2.2.0\include;D:\PG\lib\glm-master;D:\PG\lib\glfw-3.3.8.bin.WIN64\include;D:\PG\lib\SOIL2-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SuppressStartupBanner>false</SuppressStartupBanner>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\PG\lib\glew-2.2.0\bin\Release\x64;D:\PG\lib\glew-2.2.0\lib\Release\x64;D:\PG\lib\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;soil2-debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\PG\lib\glew-2.2.0\bin\Release\x64;D:\PG\lib\glew-2.2.0\lib\Release\x64;D:\PG\lib\glfw-3.3.8.bin.WIN64\lib-vc2022;D:\PG\lib\SOIL2-master\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,42 +133,56 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DirectLight.cpp" />
     <ClCompile Include="Light.cpp" />
+    <ClCompile Include="Light_manager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Object_manager.cpp" />
     <ClCompile Include="Obj_model.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Shader_manager.cpp" />
-    <ClCompile Include="Transformation.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Texture_manager.cpp" />
     <ClCompile Include="Trotate.cpp" />
+    <ClCompile Include="Tscale.cpp" />
     <ClCompile Include="Ttranslate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DirectLight.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="ISubject.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Light_manager.h" />
     <ClInclude Include="models\bushes.h" />
     <ClInclude Include="models\gift.h" />
     <ClInclude Include="models\plain.h" />
     <ClInclude Include="models\suzi_flat.h" />
     <ClInclude Include="models\sphere.h" />
+    <ClInclude Include="models\texture_test.h" />
     <ClInclude Include="models\tree.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Object_manager.h" />
     <ClInclude Include="Obj_model.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Shader_manager.h" />
+    <ClInclude Include="SpotLight.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Texture_manager.h" />
     <ClInclude Include="Transformation.h" />
     <ClInclude Include="Trotate.h" />
+    <ClInclude Include="Tscale.h" />
     <ClInclude Include="Ttranslate.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +190,7 @@
     <None Include="shaders\fs_blinn.shader" />
     <None Include="shaders\fs_const.shader" />
     <None Include="shaders\fs_lambert.shader" />
+    <None Include="shaders\fs_multipleLight.shader" />
     <None Include="shaders\fs_nocheck.shader" />
     <None Include="shaders\fs_wong.shader" />
     <None Include="shaders\vs.shader" />

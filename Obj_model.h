@@ -14,7 +14,7 @@ public:
 
 	Object_model(int);
 	~Object_model();
-	void draw_object();
+	void draw_object(int);
 	void set_VAO(GLuint);
 	GLuint get_VAO();
 	void inicialize();

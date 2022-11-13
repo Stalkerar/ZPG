@@ -2,16 +2,21 @@
 
 void Camera::Detach(IObserver* observer)
 {
-
+	//list_observer_.erase((observer));
 }
 
 void Camera::Attach(IObserver* observer)
 {
-
+	list_observer_.push_back(observer);
 }
 
 void Camera::Notify()
 {
+	std::vector<IObserver*>::iterator iterator = list_observer_.begin();
+	while (iterator != list_observer_.end()) {
+		(*iterator)->Update(this->getCamera(),this->getPosition());
+		++iterator;
+	}
 
 }
 
@@ -24,7 +29,10 @@ glm::mat4 Camera::getCamera()
 }
 
 
-
+glm::vec3 Camera::getFront()
+{
+	return this->front;
+}
 
 const glm::vec3 Camera::getPosition() 
 {
@@ -38,6 +46,7 @@ void Camera::updateInput(const float& dt, const int direction, const double& off
 {
 	this->updateKeyboardInput(dt, direction);
 	this->updateMouseInput(dt, offsetX, offsetY);
+	this->Notify();
 }
 
 void Camera::updateKeyboardInput(const float& dt, const int direction)

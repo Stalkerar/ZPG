@@ -2,8 +2,6 @@
 #ifndef _APPLICATION
 #define _APPLICATION
 
-#include <stdio.h>
-#include <iostream>
 
 
 using namespace std;
@@ -23,9 +21,11 @@ using namespace std;
 //Include the standard C++ headers  
 
 #include <stdlib.h>
-#include"Obj_model.h"
+#include <iostream>
+#include <stdio.h>
+
+
 #include"Shader_manager.h"
-#include "Shader.h"
 #include "Object.h"
 #include "Renderer.h"
 #include "Transformation.h"
@@ -33,7 +33,10 @@ using namespace std;
 #include "Camera.h"
 #include "Scene.h"
 #include "Ttranslate.h"
+#include "Tscale.h"
 #include "Object_manager.h"
+#include "Texture.h"
+#include "Light_manager.h"
 
 class Application
 {
@@ -53,9 +56,9 @@ private:
 	Renderer* renderer;
 	Camera* camera;
 	Scene* scene;
-	
-
-
+	PointLight* pointLight;
+	Light_manager* lh_manager;
+	Texture_manager* tx_manager;
 
 
 

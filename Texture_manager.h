@@ -1,7 +1,11 @@
+#pragma once
+#ifndef _TEXTURE_MANAGER
+#define _TEXTURE_MANAGER
+
 #include <stdio.h>
 #include <iostream>
+//#include "drawobj.h"
 
-#include "Application.h"
 
 using namespace std;
 
@@ -20,19 +24,25 @@ using namespace std;
 //Include the standard C++ headers  
 
 #include <stdlib.h>
+#include <vector>
+#include <SOIL2/SOIL2.h>
+#include "ShaderProgram.h"
 
 
-
-
-
-
-
-int main()
+class Texture_manager
 {
-	int option = 0;
-	Application* app = new Application(option);
-	app->run_scene();
+public:
+	Texture_manager();
+	void initexture();
+	void addTexture(int);
+	GLint getImage();
+
+private:
 	
-	
-	return 1;
-}
+	GLuint image = 0;
+
+
+
+};
+
+#endif

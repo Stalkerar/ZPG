@@ -6,6 +6,9 @@
 
 #include "Camera.h"
 #include "Shader_manager.h"
+#include "Object.h"
+#include "Texture_manager.h"
+#include "Light_manager.h"
 
 class Scene
 {
@@ -14,7 +17,8 @@ public:
 	void updateInput();
 	void updateKeyboardInput();
 	void setCamera(Camera *);
-	Scene(GLFWwindow*,Shader_Manager*);
+	void setLight(PointLight*);
+	Scene(GLFWwindow*,Shader_Manager*,Light_manager*,Texture_manager*);
 	void updateUniforms(Object*);
 	void runModel();
 	void updateDt();
@@ -22,6 +26,7 @@ public:
 	void addObject(Object*);
 	Object* getObject(int);
 	int getCountObject();
+	void initUniforms(Object*);
 
 private:
 	GLFWwindow* window;
@@ -33,6 +38,8 @@ private:
 	//OpenGL Context
 	//const int GL_VERSION_MAJOR;
 	//const int GL_VERSION_MINOR;
+
+	PointLight* pointlight;
 
 	//Delta time
 	float dt;
@@ -51,6 +58,9 @@ private:
 	//Camera
 	Camera* camera;
 	Shader_Manager* shaderManager;
+	Light_manager* lightManager;
+	Texture_manager* textureManager;
+
 	Object** objects;
 
 	//Matrices
