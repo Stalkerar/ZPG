@@ -1,5 +1,8 @@
 
 stancel test, pro moznost klikani na scenu, 
 
+material, jedna jednoducha difusni slozka
+
+
 pridat princip prochazeni, drzi na jedne plose
 
